@@ -1,0 +1,116 @@
+A51 MACRO ASSEMBLER  SLAVE_1                                                              09/17/2021 19:15:36 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02b
+OBJECT MODULE PLACED IN slave_1.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE slave_1.asm SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     
+  0031                 2     SLAV_1 EQU 31H
+0000                   3     ORG 0000H
+0000 020030            4     LJMP MAIN
+                       5     
+0030                   6     ORG 0030H
+0030                   7     MAIN: 
+0030 758920            8         MOV TMOD, #20H
+0033 758BFD            9         MOV TL1, #-3
+0036 758DFD           10         MOV TH1, #-3
+0039 7598D2           11         MOV SCON, #0D2H
+003C D28E             12             SETB TR1
+003E D29B             13         SETB TB8
+0040 7590FF           14         MOV P1, #0FFH
+0043 75A0FF           15         MOV P2, #0FFH
+0046 C2D5             16         CLR F0
+0048                  17     N_COM:
+0048 C29D             18         CLR SM2
+004A                  19     COM:
+004A 1181             20         ACALL THU
+004C 209A09           21         JB RB8, DT
+004F                  22     CHECK:
+004F B43121           23         CJNE A, #SLAV_1, MUT
+0052 D29D             24         SETB SM2
+0054 7431             25         MOV A, #SLAV_1
+0056 1179             26         ACALL PHAT
+0058                  27     DT: 
+0058 309D18           28             JNB SM2, MUT
+005B C29D             29         CLR SM2
+005D 1181             30             ACALL THU
+005F 309AED           31         JNB RB8, CHECK
+0062 D29D             32         SETB SM2
+0064 F5A0             33         MOV P2, A
+0066 60E0             34         JZ N_COM
+0068 E590             35         MOV A, P1
+006A B4FE02           36             CJNE A, #0FEH, XUAT_1
+006D 1189             37             ACALL DELAY10MS
+006F                  38     XUAT_1:
+006F 1179             39             ACALL PHAT
+0071 80E5             40         SJMP DT
+0073                  41     MUT:
+0073 E590             42         MOV A, P1
+0075 F5A0             43         MOV P2, A
+0077 80D1             44         SJMP COM
+                      45     
+0079                  46     PHAT:
+0079 3099FD           47         JNB TI,$
+007C C299             48         CLR TI
+007E F599             49         MOV SBUF,A
+0080 22               50         RET
+                      51     
+0081                  52     THU:
+0081 3098FD           53         JNB RI,$
+0084 E599             54         MOV A,SBUF
+0086 C298             55         CLR RI
+0088 22               56         RET
+                      57             
+0089                  58     DELAY10MS:
+A51 MACRO ASSEMBLER  SLAVE_1                                                              09/17/2021 19:15:36 PAGE     2
+
+0089 7E28             59                             MOV R6,#40
+008B                  60                     LP1:
+008B 7DFA             61                             MOV R5,#250
+008D DDFE             62                             DJNZ R5,$
+008F DEFA             63                             DJNZ R6, LP1
+0091 22               64                             RET
+                      65     END
+A51 MACRO ASSEMBLER  SLAVE_1                                                              09/17/2021 19:15:36 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+CHECK. . . . . . .  C ADDR   004FH   A   
+COM. . . . . . . .  C ADDR   004AH   A   
+DELAY10MS. . . . .  C ADDR   0089H   A   
+DT . . . . . . . .  C ADDR   0058H   A   
+F0 . . . . . . . .  B ADDR   00D0H.5 A   
+LP1. . . . . . . .  C ADDR   008BH   A   
+MAIN . . . . . . .  C ADDR   0030H   A   
+MUT. . . . . . . .  C ADDR   0073H   A   
+N_COM. . . . . . .  C ADDR   0048H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+PHAT . . . . . . .  C ADDR   0079H   A   
+RB8. . . . . . . .  B ADDR   0098H.2 A   
+RI . . . . . . . .  B ADDR   0098H.0 A   
+SBUF . . . . . . .  D ADDR   0099H   A   
+SCON . . . . . . .  D ADDR   0098H   A   
+SLAV_1 . . . . . .  N NUMB   0031H   A   
+SM2. . . . . . . .  B ADDR   0098H.5 A   
+TB8. . . . . . . .  B ADDR   0098H.3 A   
+TH1. . . . . . . .  D ADDR   008DH   A   
+THU. . . . . . . .  C ADDR   0081H   A   
+TI . . . . . . . .  B ADDR   0098H.1 A   
+TL1. . . . . . . .  D ADDR   008BH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR1. . . . . . . .  B ADDR   0088H.6 A   
+XUAT_1 . . . . . .  C ADDR   006FH   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

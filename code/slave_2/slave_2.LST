@@ -1,0 +1,101 @@
+A51 MACRO ASSEMBLER  SLAVE_2                                                              07/15/2021 11:12:37 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02b
+OBJECT MODULE PLACED IN slave_2.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE slave_2.asm SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     
+  0032                 2     SLAV_2 EQU 32H
+0000                   3     ORG 0000H
+0000 020030            4     LJMP MAIN
+                       5     
+0030                   6     ORG 0030H
+0030                   7     MAIN: 
+0030 758920            8         MOV TMOD, #20H
+0033 758BFD            9         MOV TL1, #-3
+0036 758DFD           10         MOV TH1, #-3
+0039 7598D2           11         MOV SCON, #0D2H
+003C D28E             12             SETB TR1
+003E D29B             13         SETB TB8
+0040 7590FF           14         MOV P1, #0FFH
+0043 75A0FF           15         MOV P2, #0FFH
+0046 C2D5             16         CLR F0
+0048                  17     N_COM:
+0048 C29D             18         CLR SM2
+004A                  19     COM:
+004A 117C             20         ACALL THU
+004C 209A09           21         JB RB8, DT
+004F                  22     CHECK:
+004F B4321C           23         CJNE A, #SLAV_2, MUT
+0052 D29D             24         SETB SM2
+0054 7432             25         MOV A, #SLAV_2
+0056 1174             26         ACALL PHAT
+0058                  27     DT: 
+0058 309D13           28             JNB SM2, MUT
+005B C29D             29         CLR SM2
+005D 117C             30             ACALL THU
+005F 309AED           31         JNB RB8, CHECK
+0062 D29D             32         SETB SM2
+0064 F5A0             33         MOV P2, A
+0066 60E0             34         JZ N_COM
+0068 E590             35         MOV A, P1
+006A 1174             36         ACALL PHAT
+006C 80EA             37         SJMP DT
+006E                  38     MUT:
+006E E590             39         MOV A, P1
+0070 F5A0             40         MOV P2, A
+0072 80D6             41         SJMP COM
+                      42     
+0074                  43     PHAT:
+0074 3099FD           44         JNB TI,$
+0077 C299             45         CLR TI
+0079 F599             46         MOV SBUF,A
+007B 22               47         RET
+                      48     
+007C                  49     THU:
+007C 3098FD           50         JNB RI,$
+007F E599             51         MOV A,SBUF
+0081 C298             52         CLR RI
+0083 22               53         RET
+                      54     
+                      55     END
+A51 MACRO ASSEMBLER  SLAVE_2                                                              07/15/2021 11:12:37 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+CHECK. . . . . . .  C ADDR   004FH   A   
+COM. . . . . . . .  C ADDR   004AH   A   
+DT . . . . . . . .  C ADDR   0058H   A   
+F0 . . . . . . . .  B ADDR   00D0H.5 A   
+MAIN . . . . . . .  C ADDR   0030H   A   
+MUT. . . . . . . .  C ADDR   006EH   A   
+N_COM. . . . . . .  C ADDR   0048H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+PHAT . . . . . . .  C ADDR   0074H   A   
+RB8. . . . . . . .  B ADDR   0098H.2 A   
+RI . . . . . . . .  B ADDR   0098H.0 A   
+SBUF . . . . . . .  D ADDR   0099H   A   
+SCON . . . . . . .  D ADDR   0098H   A   
+SLAV_2 . . . . . .  N NUMB   0032H   A   
+SM2. . . . . . . .  B ADDR   0098H.5 A   
+TB8. . . . . . . .  B ADDR   0098H.3 A   
+TH1. . . . . . . .  D ADDR   008DH   A   
+THU. . . . . . . .  C ADDR   007CH   A   
+TI . . . . . . . .  B ADDR   0098H.1 A   
+TL1. . . . . . . .  D ADDR   008BH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR1. . . . . . . .  B ADDR   0088H.6 A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
