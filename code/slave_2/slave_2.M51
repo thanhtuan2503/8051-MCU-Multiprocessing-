@@ -1,8 +1,8 @@
-BL51 BANKED LINKER/LOCATER V6.22                                                        07/15/2021  11:12:37  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22                                                        09/18/2021  18:24:30  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
-C:\KEIL\C51\BIN\BL51.EXE slave_2.obj TO slave_2
+C:\KEIL_V5\C51\BIN\BL51.EXE slave_2.obj TO slave_2
 
 
 INPUT MODULES INCLUDED:
@@ -19,7 +19,7 @@ LINK MAP OF MODULE:  slave_2 (SLAVE_2)
             REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
 
             * * * * * * *   C O D E   M E M O R Y   * * * * * * *
-            CODE    0000H     0084H     ABSOLUTE     
+            CODE    0000H     00AEH     ABSOLUTE     
 
 
 
@@ -29,16 +29,22 @@ SYMBOL TABLE OF MODULE:  slave_2 (SLAVE_2)
   ----------------------------------
 
   -------         MODULE        SLAVE_2
+  D:00F0H         SYMBOL        B
   C:004FH         SYMBOL        CHECK
   C:004AH         SYMBOL        COM
+  C:0097H         SYMBOL        DLS120
+  C:009CH         SYMBOL        DLS1M
   C:0058H         SYMBOL        DT
   B:00D0H.5       SYMBOL        F0
+  C:009EH         SYMBOL        LP
   C:0030H         SYMBOL        MAIN
-  C:006EH         SYMBOL        MUT
+  C:0081H         SYMBOL        MUT
   C:0048H         SYMBOL        N_COM
+  D:0080H         SYMBOL        P0
   D:0090H         SYMBOL        P1
   D:00A0H         SYMBOL        P2
-  C:0074H         SYMBOL        PHAT
+  D:00B0H         SYMBOL        P3
+  C:0087H         SYMBOL        PHAT
   B:0098H.2       SYMBOL        RB8
   B:0098H.0       SYMBOL        RI
   D:0099H         SYMBOL        SBUF
@@ -47,11 +53,15 @@ SYMBOL TABLE OF MODULE:  slave_2 (SLAVE_2)
   B:0098H.5       SYMBOL        SM2
   B:0098H.3       SYMBOL        TB8
   D:008DH         SYMBOL        TH1
-  C:007CH         SYMBOL        THU
+  C:008FH         SYMBOL        THU
   B:0098H.1       SYMBOL        TI
+  C:00A4H         SYMBOL        TINH_BCD
   D:008BH         SYMBOL        TL1
   D:0089H         SYMBOL        TMOD
   B:0088H.6       SYMBOL        TR1
+BL51 BANKED LINKER/LOCATER V6.22                                                      09/18/2021  18:24:30  PAGE 2
+
+
   C:0000H         LINE#         4
   C:0030H         LINE#         8
   C:0033H         LINE#         9
@@ -59,9 +69,6 @@ SYMBOL TABLE OF MODULE:  slave_2 (SLAVE_2)
   C:0039H         LINE#         11
   C:003CH         LINE#         12
   C:003EH         LINE#         13
-BL51 BANKED LINKER/LOCATER V6.22                                                      07/15/2021  11:12:37  PAGE 2
-
-
   C:0040H         LINE#         14
   C:0043H         LINE#         15
   C:0046H         LINE#         16
@@ -79,21 +86,50 @@ SYMBOL TABLE OF MODULE:  slave_2 (SLAVE_2)
   C:0062H         LINE#         32
   C:0064H         LINE#         33
   C:0066H         LINE#         34
-  C:0068H         LINE#         35
-  C:006AH         LINE#         36
-  C:006CH         LINE#         37
+  C:0068H         LINE#         36
+  C:006AH         LINE#         37
+  C:006CH         LINE#         38
   C:006EH         LINE#         39
-  C:0070H         LINE#         40
-  C:0072H         LINE#         41
-  C:0074H         LINE#         44
-  C:0077H         LINE#         45
-  C:0079H         LINE#         46
-  C:007BH         LINE#         47
-  C:007CH         LINE#         50
-  C:007FH         LINE#         51
-  C:0081H         LINE#         52
-  C:0083H         LINE#         53
+  C:006FH         LINE#         40
+  C:0071H         LINE#         41
+  C:0073H         LINE#         42
+  C:0075H         LINE#         43
+  C:0077H         LINE#         46
+  C:0079H         LINE#         47
+  C:007BH         LINE#         50
+  C:007DH         LINE#         51
+  C:007FH         LINE#         52
+  C:0081H         LINE#         54
+  C:0083H         LINE#         55
+  C:0085H         LINE#         56
+  C:0087H         LINE#         59
+  C:008AH         LINE#         60
+  C:008CH         LINE#         61
+  C:008EH         LINE#         62
+  C:008FH         LINE#         65
+  C:0092H         LINE#         66
+  C:0094H         LINE#         67
+  C:0096H         LINE#         68
+  C:0097H         LINE#         70
+  C:0099H         LINE#         71
+  C:009BH         LINE#         72
+  C:009CH         LINE#         74
+  C:009EH         LINE#         75
+  C:00A0H         LINE#         76
+  C:00A2H         LINE#         77
+  C:00A4H         LINE#         80
+  C:00A7H         LINE#         81
+BL51 BANKED LINKER/LOCATER V6.22                                                      09/18/2021  18:24:30  PAGE 3
+
+
+  C:00A8H         LINE#         82
+  C:00AAH         LINE#         83
+  C:00ADH         LINE#         84
   -------         ENDMOD        SLAVE_2
 
-Program Size: data=8.0 xdata=0 code=132
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0081H BYTE ( 6%) *
+******************************************************************************
+
+Program Size: data=8.0 xdata=0 code=174
 LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

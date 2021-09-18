@@ -1,20 +1,20 @@
-A51 MACRO ASSEMBLER  MASTER                                                               09/17/2021 19:19:13 PAGE     1
+A51 MACRO ASSEMBLER  MASTER                                                               09/18/2021 18:23:02 PAGE     1
 
 
-MACRO ASSEMBLER A51 V8.02b
+MACRO ASSEMBLER A51 V8.02
 OBJECT MODULE PLACED IN master.OBJ
-ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE master.asm SET(SMALL) DEBUG EP
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE master.asm SET(SMALL) DEBUG EP
 
 LOC  OBJ            LINE     SOURCE
 
-  00B2                 1     SELECT  BIT P3.2
+  00B2                 1     SELECT  BIT P3.2; bit chon mode
   0031                 2     SLAV_1  EQU 31H
   0032                 3     SLAV_2  EQU 32H
-  0020                 4     NOB             EQU 20H
+  0020                 4     NOB             EQU 20H; luu gia tri so lan nhan nut
   00B3                 5     LCD_E   BIT     P3.3                    
   00B5                 6     LCD_RS  BIT     P3.5
   6000                 7     LCDADDR EQU     6000H
-  00B4                 8     LCD             BIT P3.4
+  00B4                 8     LCD             BIT P3.4; bit kich hoat dong LCD
 0000                   9     ORG 0000H
 0000 020030           10     LJMP MAIN
                       11     
@@ -29,25 +29,25 @@ LOC  OBJ            LINE     SOURCE
 0041 75A0FF           20         MOV P2, #0FFH
 0044 752000           21             MOV NOB, #0
 0047 906000           22             MOV             DPTR, #LCDADDR
-004A 11FE             23             ACALL   INIT_LCD
-004C 310B             24             ACALL   CLEAR
+004A 310C             23             ACALL   INIT_LCD
+004C 3119             24             ACALL   CLEAR
                       25     
 004E                  26     COMPARE:
-004E 758AB0           27         MOV TL0, #LOW(-50000)
+004E 758AB0           27         MOV TL0, #LOW(-50000); tao timer 0 delay luc chon mode
 0051 758C3C           28         MOV TH0, #HIGH(-50000)
 0054 C28C             29         CLR TR0
 0056 C28D             30         CLR TF0
-0058 20B236           31         JB P3.2, SL2
+0058 20B236           31         JB P3.2, SL2; chon mode
                       32     
 005B                  33     SL1:
 005B C29B             34         CLR TB8 
 005D C29D             35         CLR SM2
-005F 310B             36             ACALL   CLEAR   
-0061 3144             37             ACALL   DISPLAYSTRING_1         
+005F 3119             36             ACALL   CLEAR   
+0061 3152             37             ACALL   DISPLAYSTRING_1         
 0063 7431             38         MOV A, #SLAV_1
-0065 11BC             39         ACALL PHAT 
+0065 11CA             39         ACALL PHAT 
                       40     
-0067 11C4             41         ACALL THU
+0067 11D2             41         ACALL THU
 0069 208DE2           42         JB TF0, COMPARE
 006C C29D             43         CLR SM2
 006E B431DD           44         CJNE A, #SLAV_1, COMPARE
@@ -55,32 +55,32 @@ LOC  OBJ            LINE     SOURCE
 0071                  46     TRANS_1: 
 0071 D29B             47         SETB TB8
 0073 E590             48         MOV A, P1
-0075 11BC             49         ACALL PHAT
+0075 11CA             49         ACALL PHAT
 0077 60D5             50         JZ COMPARE
-0079 11C4             51         ACALL THU 
+0079 11D2             51         ACALL THU 
 007B 208DD0           52         JB TF0, COMPARE 
 007E C29B             53         CLR TB8
 0080 C29D             54         CLR SM2
-0082 B4FE04           55             CJNE A, #0FEH, XUAT_1
-0085 0520             56             INC NOB
-0087 3137             57             ACALL WAIT_BUTTON;thu r?i ko anh huong
+0082 B4FE04           55             CJNE A, #0FEH, XUAT_1; xem co nhan nut hay khong(1111 1110?)
+0085 0520             56             INC NOB; neu co tang so lan nhan nut len 1.
+0087 3145             57             ACALL WAIT_BUTTON; delay 250ms giam hien tuong rung phim
 0089                  58     XUAT_1:
-A51 MACRO ASSEMBLER  MASTER                                                               09/17/2021 19:19:13 PAGE     2
+A51 MACRO ASSEMBLER  MASTER                                                               09/18/2021 18:23:02 PAGE     2
 
-0089 E520             59             MOV A, NOB
-008B 11DB             60             ACALL   DOI_BCD
-008D 11EA             61             ACALL   HIEN_THI        
+0089 E520             59             MOV A, NOB; chuyen so lan nhan nut vao A
+008B 11E9             60             ACALL   DOI_BCD; chuyen sang dang BCD
+008D 11F8             61             ACALL   HIEN_THI; xuat kieu BCD ra ma ASCII
 008F 80E0             62         SJMP TRANS_1
                       63     
 0091                  64     SL2:
 0091 C29B             65         CLR TB8 
 0093 C29D             66         CLR SM2     
-0095 310B             67             ACALL   CLEAR   
-0097 3158             68             ACALL   DISPLAYSTRING_2                 
+0095 3119             67             ACALL   CLEAR   
+0097 3166             68             ACALL   DISPLAYSTRING_2                 
 0099 7432             69         MOV A, #SLAV_2
-009B 11BC             70         ACALL PHAT 
+009B 11CA             70         ACALL PHAT 
                       71     
-009D 11C4             72         ACALL THU
+009D 11D2             72         ACALL THU
 009F 208DAC           73         JB TF0, COMPARE
 00A2 C29D             74         CLR SM2
 00A4 B432A7           75         CJNE A, #SLAV_2, COMPARE
@@ -88,159 +88,175 @@ LOC  OBJ            LINE     SOURCE
 00A7                  77     TRANS_2: 
 00A7 D29B             78         SETB TB8
 00A9 E590             79         MOV A, P1
-00AB 11BC             80         ACALL PHAT
+00AB 11CA             80         ACALL PHAT
 00AD 609F             81         JZ COMPARE
-00AF 11C4             82         ACALL THU 
-00B1 208D9A           83         JB TF0, COMPARE 
-00B4 C29B             84         CLR TB8
-00B6 C29D             85         CLR SM2
-00B8 F5A0             86         MOV P2, A
-00BA 80EB             87         SJMP TRANS_2
-                      88     
-00BC                  89     PHAT:
-00BC 3099FD           90         JNB TI,$
-00BF C299             91         CLR TI
-00C1 F599             92         MOV SBUF,A
-00C3 22               93         RET
-                      94     
-00C4                  95     THU:
-00C4 D28C             96         SETB TR0
-00C6 208D11           97     OT: JB TF0, ET
-00C9 3098FA           98         JNB RI, OT    
-00CC 758AB0           99         MOV TL0, #LOW(-50000)
-00CF 758C3C          100         MOV TH0, #HIGH(-50000)
-00D2 C28C            101         CLR TR0
-00D4 C28D            102         CLR TF0
-00D6 E599            103         MOV A,SBUF
-00D8 C298            104         CLR RI
-00DA 22              105     ET: RET
-                     106     
-00DB 75F064          107     DOI_BCD:        MOV B,#100
-00DE 84              108                             DIV AB
-00DF F9              109                             MOV R1, A
-00E0 E5F0            110                             MOV A,B
-00E2 75F00A          111                             MOV B, #10
-00E5 84              112                             DIV AB
-00E6 FA              113                             MOV R2,A
-00E7 ABF0            114                             MOV R3, B
-00E9 22              115                             RET
+                      82     
+00AF 11D2             83         ACALL THU 
+00B1 208D9A           84         JB TF0, COMPARE
+00B4 F9               85             MOV R1,A
+00B5 11D2             86             ACALL THU
+00B7 FA               87             MOV R2,A
+00B8 7420             88             MOV A,#20H
+00BA 312D             89             ACALL WRITETEXT
+00BC 7B3F             90             MOV R3,#3FH
+00BE 11F8             91             ACALL HIEN_THI
+00C0 7443             92             MOV A,#'C'
+00C2 312D             93             ACALL WRITETEXT
+00C4 C29B             94         CLR TB8
+00C6 C29D             95         CLR SM2
+                      96      
+00C8 80DD             97         SJMP TRANS_2
+                      98     
+00CA                  99     PHAT:
+00CA 3099FD          100         JNB TI,$
+00CD C299            101         CLR TI
+00CF F599            102         MOV SBUF,A
+00D1 22              103         RET
+                     104     
+00D2                 105     THU:
+00D2 D28C            106         SETB TR0
+00D4 208D11          107     OT: JB TF0, ET
+00D7 3098FA          108         JNB RI, OT    
+00DA 758AB0          109         MOV TL0, #LOW(-50000); neu quá 50ms chua thu xong thì reset
+00DD 758C3C          110         MOV TH0, #HIGH(-50000)
+00E0 C28C            111         CLR TR0
+00E2 C28D            112         CLR TF0
+00E4 E599            113         MOV A,SBUF
+00E6 C298            114         CLR RI
+00E8 22              115     ET: RET
                      116     
-00EA                 117     HIEN_THI:
-00EA 74C0            118                             MOV A, #0C0H
-00EC 3110            119                             ACALL WRITECOM
-00EE 7430            120                             MOV A,#30H
-00F0 29              121                             ADD A, R1
-00F1 311F            122                             ACALL WRITETEXT
-00F3 7430            123                             MOV A,#30H
-00F5 2A              124                             ADD A, R2
-A51 MACRO ASSEMBLER  MASTER                                                               09/17/2021 19:19:13 PAGE     3
+00E9 75F064          117     DOI_BCD:        MOV B,#100
+00EC 84              118                             DIV AB
+00ED F9              119                             MOV R1, A
+00EE E5F0            120                             MOV A,B
+00F0 75F00A          121                             MOV B, #10
+00F3 84              122                             DIV AB
+00F4 FA              123                             MOV R2,A
+00F5 ABF0            124                             MOV R3, B
+A51 MACRO ASSEMBLER  MASTER                                                               09/18/2021 18:23:02 PAGE     3
 
-00F6 311F            125                             ACALL WRITETEXT
-00F8 7430            126                             MOV A,#30H
-00FA 2B              127                             ADD A, R3
-00FB 311F            128                             ACALL WRITETEXT
-00FD 22              129                             RET
-                     130     
-00FE                 131     INIT_LCD:                                               
-00FE 7438            132                             MOV             A, #38H                    
-0100 3110            133                             ACALL   WRITECOM                
-0102 740F            134                             MOV             A, #0FH                         
-0104 3110            135                             ACALL   WRITECOM                
-0106 7406            136                             MOV             A, #06H                           
-0108 3110            137                             ACALL   WRITECOM                   
-010A 22              138                             RET
-                     139     
-010B                 140     CLEAR:
-010B 7401            141                             MOV             A, #01H                          
-010D 3110            142                             ACALL   WRITECOM                
-010F 22              143                             RET
-                     144     
-0110                 145     WRITECOM:                                       
-0110 C2B4            146                             CLR     LCD
-0112 906000          147                             MOV             DPTR, #LCDADDR  
-0115 D2B3            148                             SETB    LCD_E                     
-0117 C2B5            149                             CLR             LCD_RS                    
-0119 F0              150                             MOVX    @DPTR, A                  
-011A C2B3            151                             CLR             LCD_E 
-011C 312E            152                             ACALL   WAIT_LCD                  
-011E 22              153                             RET
-                     154                     
-011F                 155     WRITETEXT:                                              
-011F C2B4            156                             CLR     LCD
-0121 906000          157                             MOV             DPTR, #LCDADDR                  
-0124 D2B3            158                             SETB    LCD_E                            
-0126 D2B5            159                             SETB    LCD_RS                            
-0128 F0              160                             MOVX    @DPTR, A                          
-0129 C2B3            161                             CLR             LCD_E                                   
-012B 312E            162                             ACALL   WAIT_LCD                                 
-012D 22              163                             RET
-                     164     
-012E                 165     WAIT_LCD:                                          
-012E 7E0A            166                             MOV             R6,#10                           
-0130                 167             DL1:                    
-0130 7FFA            168                             MOV             R7, #250                        
-0132 DFFE            169                             DJNZ    R7, $
-0134 DEFA            170                             DJNZ    R6,DL1
-0136 22              171                             RET
-                     172     
-0137                 173     WAIT_BUTTON:                                       
-0137 7F03            174                             MOV R7, #3
-0139                 175                     LP2:
-0139 7EC8            176                             MOV R6,#200
-013B                 177                     LP1:
-013B 7DFA            178                             MOV R5,#250
-013D DDFE            179                             DJNZ R5,$
-013F DEFA            180                             DJNZ R6, LP1
-0141 DFF6            181                             DJNZ R7, LP2
-0143 22              182                             RET
-                     183     
-0144                 184     DISPLAYSTRING_1:                                         
-0144 C000            185                             PUSH    0
-0146 7400            186                             MOV             A,#0                            
-0148                 187     LOOP_1:
-0148 90016C          188                             MOV             DPTR, #MESS_SL1         
-014B F8              189                             MOV             R0,A                             
-014C 93              190                             MOVC    A,@A+DPTR                       
-A51 MACRO ASSEMBLER  MASTER                                                               09/17/2021 19:19:13 PAGE     4
+00F7 22              125                             RET
+                     126     
+00F8                 127     HIEN_THI:
+00F8 74C0            128                             MOV A, #0C0H
+00FA 311E            129                             ACALL WRITECOM
+00FC 7430            130                             MOV A,#30H
+00FE 29              131                             ADD A, R1
+00FF 312D            132                             ACALL WRITETEXT
+0101 7430            133                             MOV A,#30H
+0103 2A              134                             ADD A, R2
+0104 312D            135                             ACALL WRITETEXT
+0106 7430            136                             MOV A,#30H
+0108 2B              137                             ADD A, R3
+0109 312D            138                             ACALL WRITETEXT
+010B 22              139                             RET
+                     140     
+010C                 141     INIT_LCD:                                               
+010C 7438            142                             MOV             A, #38H                    
+010E 311E            143                             ACALL   WRITECOM                
+0110 740F            144                             MOV             A, #0FH                         
+0112 311E            145                             ACALL   WRITECOM                
+0114 7406            146                             MOV             A, #06H                           
+0116 311E            147                             ACALL   WRITECOM                   
+0118 22              148                             RET
+                     149     
+0119                 150     CLEAR:
+0119 7401            151                             MOV             A, #01H                          
+011B 311E            152                             ACALL   WRITECOM                
+011D 22              153                             RET
+                     154     
+011E                 155     WRITECOM:                                       
+011E C2B4            156                             CLR     LCD; kich LCD hoat dong
+0120 906000          157                             MOV             DPTR, #LCDADDR  
+0123 D2B3            158                             SETB    LCD_E                     
+0125 C2B5            159                             CLR             LCD_RS                    
+0127 F0              160                             MOVX    @DPTR, A                  
+0128 C2B3            161                             CLR             LCD_E 
+012A 313C            162                             ACALL   WAIT_LCD                  
+012C 22              163                             RET
+                     164                     
+012D                 165     WRITETEXT:                                              
+012D C2B4            166                             CLR     LCD; kich LCD hoat dong
+012F 906000          167                             MOV             DPTR, #LCDADDR                  
+0132 D2B3            168                             SETB    LCD_E                            
+0134 D2B5            169                             SETB    LCD_RS                            
+0136 F0              170                             MOVX    @DPTR, A                          
+0137 C2B3            171                             CLR             LCD_E                                   
+0139 313C            172                             ACALL   WAIT_LCD                                 
+013B 22              173                             RET
+                     174     
+013C                 175     WAIT_LCD:                                          
+013C 7E0A            176                             MOV             R6,#10                           
+013E                 177             DL1:                    
+013E 7FFA            178                             MOV             R7, #250                        
+0140 DFFE            179                             DJNZ    R7, $
+0142 DEFA            180                             DJNZ    R6,DL1
+0144 22              181                             RET
+                     182     
+0145                 183     WAIT_BUTTON:                                       
+0145 7F03            184                             MOV R7, #3
+0147                 185                     LP2:
+0147 7EC8            186                             MOV R6,#200
+0149                 187                     LP1:
+0149 7DFA            188                             MOV R5,#250
+014B DDFE            189                             DJNZ R5,$
+014D DEFA            190                             DJNZ R6, LP1
+A51 MACRO ASSEMBLER  MASTER                                                               09/18/2021 18:23:02 PAGE     4
 
-014D 6006            191                             JZ              EXIT_1                                             
+014F DFF6            191                             DJNZ R7, LP2
+0151 22              192                             RET
+                     193     
+0152                 194     DISPLAYSTRING_1:                                         
+0152 C000            195                             PUSH    0
+0154 7400            196                             MOV             A,#0                            
+0156                 197     LOOP_1:
+0156 900184          198                             MOV             DPTR, #MESS_SL1         
+0159 F8              199                             MOV             R0,A                             
+015A 93              200                             MOVC    A,@A+DPTR                       
+015B 6006            201                             JZ              EXIT_1                                             
                                   
-014F 311F            192                             ACALL   WRITETEXT                        
-0151 E8              193                             MOV             A,R0                            
-0152 04              194                             INC             A                                       
-0153 80F3            195                             SJMP    LOOP_1                    
-0155                 196     EXIT_1:                 
-0155 D000            197                             POP 0
-0157 22              198                             RET
-                     199     
-0158                 200     DISPLAYSTRING_2:                                         
-0158 C000            201                             PUSH    0
-015A 7400            202                             MOV             A,#0                            
-015C                 203     LOOP_2:
-015C 90017E          204                             MOV             DPTR, #MESS_SL2
-015F F8              205                             MOV             R0,A                             
-0160 93              206                             MOVC    A,@A+DPTR                       
-0161 6006            207                             JZ              EXIT_2                                  
-0163 311F            208                             ACALL   WRITETEXT                        
-0165 E8              209                             MOV             A,R0                            
-0166 04              210                             INC             A                                       
-0167 80F3            211                             SJMP    LOOP_2                    
-0169                 212     EXIT_2:                 
-0169 D000            213                             POP 0
-016B 22              214                             RET
-                     215                             
-016C 534F204C        216     MESS_SL1:       DB "SO LAN NHAN NUT: ", 0
-0170 414E204E                
-0174 48414E20                
-0178 4E55543A                
-017C 2000                    
-017E 4E484945        217     MESS_SL2:       DB "NHIET DO HIEN TAI: ", 0
-0182 5420444F                
-0186 20484945                
-018A 4E205441                
-018E 493A2000                
-                     218     END
-A51 MACRO ASSEMBLER  MASTER                                                               09/17/2021 19:19:13 PAGE     5
+015D 312D            202                             ACALL   WRITETEXT                        
+015F E8              203                             MOV             A,R0                            
+0160 04              204                             INC             A                                       
+0161 80F3            205                             SJMP    LOOP_1                    
+0163                 206     EXIT_1:                 
+0163 D000            207                             POP 0
+0165 22              208                             RET
+                     209     
+0166                 210     DISPLAYSTRING_2:                                         
+0166 C000            211                             PUSH    0
+0168 7400            212                             MOV             A,#0                            
+016A                 213     LOOP_2:
+016A 900196          214                             MOV             DPTR, #MESS_SL2
+016D F8              215                             MOV             R0,A                             
+016E 93              216                             MOVC    A,@A+DPTR                       
+016F 6006            217                             JZ              EXIT_2                                  
+0171 312D            218                             ACALL   WRITETEXT                        
+0173 E8              219                             MOV             A,R0                            
+0174 04              220                             INC             A                                       
+0175 80F3            221                             SJMP    LOOP_2                    
+0177                 222     EXIT_2:                 
+0177 D000            223                             POP 0
+0179 22              224                             RET
+017A                 225     TINH_BCD:
+017A 75F00A          226     MOV B,#10
+017D 84              227     DIV AB
+017E F560            228     MOV 60H,A
+0180 85F061          229     MOV 61H,B
+0183 22              230     RET
+                     231                             
+0184 534F204C        232     MESS_SL1:       DB "SO LAN NHAN NUT: ", 0
+0188 414E204E                
+018C 48414E20                
+0190 4E55543A                
+0194 2000                    
+0196 54454D50        233     MESS_SL2:       DB "TEMPERATURE:", 0
+019A 45524154                
+019E 5552453A                
+01A2 00                      
+                     234     
+                     235     END
+A51 MACRO ASSEMBLER  MASTER                                                               09/18/2021 18:23:02 PAGE     5
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -249,34 +265,34 @@ SYMBOL TABLE LISTING
 N A M E             T Y P E  V A L U E   ATTRIBUTES
 
 B. . . . . . . . .  D ADDR   00F0H   A   
-CLEAR. . . . . . .  C ADDR   010BH   A   
+CLEAR. . . . . . .  C ADDR   0119H   A   
 COMPARE. . . . . .  C ADDR   004EH   A   
-DISPLAYSTRING_1. .  C ADDR   0144H   A   
-DISPLAYSTRING_2. .  C ADDR   0158H   A   
-DL1. . . . . . . .  C ADDR   0130H   A   
-DOI_BCD. . . . . .  C ADDR   00DBH   A   
-ET . . . . . . . .  C ADDR   00DAH   A   
-EXIT_1 . . . . . .  C ADDR   0155H   A   
-EXIT_2 . . . . . .  C ADDR   0169H   A   
-HIEN_THI . . . . .  C ADDR   00EAH   A   
-INIT_LCD . . . . .  C ADDR   00FEH   A   
+DISPLAYSTRING_1. .  C ADDR   0152H   A   
+DISPLAYSTRING_2. .  C ADDR   0166H   A   
+DL1. . . . . . . .  C ADDR   013EH   A   
+DOI_BCD. . . . . .  C ADDR   00E9H   A   
+ET . . . . . . . .  C ADDR   00E8H   A   
+EXIT_1 . . . . . .  C ADDR   0163H   A   
+EXIT_2 . . . . . .  C ADDR   0177H   A   
+HIEN_THI . . . . .  C ADDR   00F8H   A   
+INIT_LCD . . . . .  C ADDR   010CH   A   
 LCD. . . . . . . .  B ADDR   00B0H.4 A   
 LCDADDR. . . . . .  N NUMB   6000H   A   
 LCD_E. . . . . . .  B ADDR   00B0H.3 A   
 LCD_RS . . . . . .  B ADDR   00B0H.5 A   
-LOOP_1 . . . . . .  C ADDR   0148H   A   
-LOOP_2 . . . . . .  C ADDR   015CH   A   
-LP1. . . . . . . .  C ADDR   013BH   A   
-LP2. . . . . . . .  C ADDR   0139H   A   
+LOOP_1 . . . . . .  C ADDR   0156H   A   
+LOOP_2 . . . . . .  C ADDR   016AH   A   
+LP1. . . . . . . .  C ADDR   0149H   A   
+LP2. . . . . . . .  C ADDR   0147H   A   
 MAIN . . . . . . .  C ADDR   0030H   A   
-MESS_SL1 . . . . .  C ADDR   016CH   A   
-MESS_SL2 . . . . .  C ADDR   017EH   A   
+MESS_SL1 . . . . .  C ADDR   0184H   A   
+MESS_SL2 . . . . .  C ADDR   0196H   A   
 NOB. . . . . . . .  N NUMB   0020H   A   
-OT . . . . . . . .  C ADDR   00C6H   A   
+OT . . . . . . . .  C ADDR   00D4H   A   
 P1 . . . . . . . .  D ADDR   0090H   A   
 P2 . . . . . . . .  D ADDR   00A0H   A   
 P3 . . . . . . . .  D ADDR   00B0H   A   
-PHAT . . . . . . .  C ADDR   00BCH   A   
+PHAT . . . . . . .  C ADDR   00CAH   A   
 RI . . . . . . . .  B ADDR   0098H.0 A   
 SBUF . . . . . . .  D ADDR   0099H   A   
 SCON . . . . . . .  D ADDR   0098H   A   
@@ -290,8 +306,9 @@ TB8. . . . . . . .  B ADDR   0098H.3 A
 TF0. . . . . . . .  B ADDR   0088H.5 A   
 TH0. . . . . . . .  D ADDR   008CH   A   
 TH1. . . . . . . .  D ADDR   008DH   A   
-THU. . . . . . . .  C ADDR   00C4H   A   
+THU. . . . . . . .  C ADDR   00D2H   A   
 TI . . . . . . . .  B ADDR   0098H.1 A   
+TINH_BCD . . . . .  C ADDR   017AH   A   
 TL0. . . . . . . .  D ADDR   008AH   A   
 TL1. . . . . . . .  D ADDR   008BH   A   
 TMOD . . . . . . .  D ADDR   0089H   A   
@@ -299,14 +316,16 @@ TR0. . . . . . . .  B ADDR   0088H.4 A
 TR1. . . . . . . .  B ADDR   0088H.6 A   
 TRANS_1. . . . . .  C ADDR   0071H   A   
 TRANS_2. . . . . .  C ADDR   00A7H   A   
-WAIT_BUTTON. . . .  C ADDR   0137H   A   
-WAIT_LCD . . . . .  C ADDR   012EH   A   
-WRITECOM . . . . .  C ADDR   0110H   A   
-WRITETEXT. . . . .  C ADDR   011FH   A   
+WAIT_BUTTON. . . .  C ADDR   0145H   A   
+WAIT_LCD . . . . .  C ADDR   013CH   A   
+WRITECOM . . . . .  C ADDR   011EH   A   
+WRITETEXT. . . . .  C ADDR   012DH   A   
 XUAT_1 . . . . . .  C ADDR   0089H   A   
 
 
 REGISTER BANK(S) USED: 0 
+A51 MACRO ASSEMBLER  MASTER                                                               09/18/2021 18:23:02 PAGE     6
+
 
 
 ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
